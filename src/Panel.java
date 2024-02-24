@@ -22,27 +22,30 @@ public class Panel extends JPanel implements ActionListener {
             System.out.println(1231);
         }
         angle=0;
-        hexButton=new HexButton(200, 200, 100, 50*Math.sqrt(3.0));
+        hexButton=new HexButton("button");
         hexButton.addActionListener(this);
+        hexButton.setBounds(200, 100, 50, 50);
+        //hexButton.setVisible(true);
     }
 
 
     public void paint(Graphics g){
         super.paint(g);
-        Graphics2D g2 = img.createGraphics();
-        AffineTransform t = new AffineTransform();
-        AffineTransform tx = AffineTransform.getRotateInstance(Math.toRadians(60), 50, 50);
-        t.rotate(Math.toRadians(angle), 50,50);
-        g2.setTransform(t);
-        g2.drawImage(img, 0, 0,100, 100, null);
-        //AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-        //g2.drawImage(op.filter(img, null), 50, 50, null);
-
-        //g2.drawImage(img, 200, 200, null);
-        g2.dispose();
         add(hexButton);
         hexButton.paintComponent(g);
-        //hexButton.setBounds(100, 100, 100, 100);
+
+        Graphics2D g2 = (Graphics2D) g;
+        AffineTransform oldTransform = g2.getTransform();
+        AffineTransform t = new AffineTransform();
+        t.rotate(Math.toRadians(angle), 25,25);
+        g2.setTransform(t);
+        g2.drawImage(img, 0, 0,50, 50, null);
+        g2.dispose();
+        g2.setTransform(oldTransform);
+
+
+
+
     }
 
     @Override
