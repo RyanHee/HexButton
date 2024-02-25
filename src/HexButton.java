@@ -49,15 +49,23 @@ public class HexButton extends JButton {
         y=yy;
         width=w;
         height = h;
+        width/=2;
+        height/=2;
         for(int i = 0; i < 6; i++) {
             double v = i*Math.PI/3;
-            xPoints[i] = x + (int)Math.round(-width*Math.sin(v + Math.PI/2));
-            yPoints[i] = y + (int)Math.round(height*Math.cos(v + Math.PI/2));
+            //use this for ^
+            xPoints[i] = x + (int)Math.round(-width*Math.cos(v + Math.PI/2));
+            yPoints[i] = y + (int)Math.round(-height*Math.sin(v + Math.PI/2));
+            //use this for ------
+            //xPoints[i] = x + (int)Math.round(-width*Math.sin(v + Math.PI/2));
+            //yPoints[i] = y + (int)Math.round(-height*Math.cos(v + Math.PI/2));
         }
         hexagon = new Polygon(xPoints, yPoints, 6);
         //Graphics g = getGraphics();
         //System.out.println(g);
         //g.fillPolygon(hexagon);
+        width*=2;
+        height*=2;
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
     }
@@ -71,9 +79,9 @@ public class HexButton extends JButton {
         //g.setColor(Color.BLACK);
 
         // Draw the hexagon
-        //g.fillPolygon(hexagon);
+        g.fillPolygon(hexagon);
         System.out.println(x+", "+y);
-        g.drawImage(img, x, y, width, height, null);
+        //g.drawImage(img, x, y, width, height, null);
     }
 
     @Override
