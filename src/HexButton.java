@@ -18,6 +18,9 @@ public class HexButton extends JButton {
         yPoints = new int[6];
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
+        setOpaque(false);
+        setContentAreaFilled(false);
+        setBorderPainted(false);
         hexagon = new Polygon(xPoints, yPoints, 6);
         try{
             img = ImageIO.read(Panel.class.getResource("tile.png"));
@@ -27,14 +30,14 @@ public class HexButton extends JButton {
         }
     }
 
-    public HexButton(String label, int x, int y, double width, double height){
+    public HexButton(String label, int x, int y, int width, int height){
         super(label);
         int[] xPoints = new int[6];
         int[] yPoints = new int[6];
         for(int i = 0; i < 6; i++) {
             double v = i*Math.PI/3;
-            xPoints[i] = x + (int)Math.round(-width*Math.sin(v + Math.PI/2));
-            yPoints[i] = y + (int)Math.round(height*Math.cos(v + Math.PI/2));
+            xPoints[i] = x +width/2+ (int)Math.round(-width/2*Math.cos(v + Math.PI/2));
+            yPoints[i] = y +height/2+ (int)Math.round(-height/2*Math.sin(v + Math.PI/2));
         }
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
@@ -49,13 +52,13 @@ public class HexButton extends JButton {
         y=yy;
         width=w;
         height = h;
-        width/=2;
-        height/=2;
+        //width/=2;
+        //height/=2;
         for(int i = 0; i < 6; i++) {
             double v = i*Math.PI/3;
             //use this for ^
-            xPoints[i] = x + (int)Math.round(-width*Math.cos(v + Math.PI/2));
-            yPoints[i] = y + (int)Math.round(-height*Math.sin(v + Math.PI/2));
+            xPoints[i] = x +width/2+ (int)Math.round(-width/2*Math.cos(v + Math.PI/2));
+            yPoints[i] = y +height/2+ (int)Math.round(-height/2*Math.sin(v + Math.PI/2));
             //use this for ------
             //xPoints[i] = x + (int)Math.round(-width*Math.sin(v + Math.PI/2));
             //yPoints[i] = y + (int)Math.round(-height*Math.cos(v + Math.PI/2));
@@ -64,8 +67,8 @@ public class HexButton extends JButton {
         //Graphics g = getGraphics();
         //System.out.println(g);
         //g.fillPolygon(hexagon);
-        width*=2;
-        height*=2;
+        //width*=2;
+        //height*=2;
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
     }
@@ -81,7 +84,7 @@ public class HexButton extends JButton {
         // Draw the hexagon
         g.fillPolygon(hexagon);
         System.out.println(x+", "+y);
-        //g.drawImage(img, x, y, width, height, null);
+        //g.drawImage(img, x, y, width, width/100*116, null);
     }
 
     @Override
