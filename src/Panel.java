@@ -34,8 +34,9 @@ public class Panel extends JPanel implements ActionListener {
         add(hexButton);
         int x=10*getWidth()/1600;
         int y=10*getHeight()/900;
-        int w = 50*getWidth()/1600;
+        int w = 58*getWidth()/1600;
         int h = 58*getHeight()/900;
+        h = w*58/50;
         hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50*getWidth()/1600, 50*getHeight()/900);
         hexButton.paintComponent(g);
 
