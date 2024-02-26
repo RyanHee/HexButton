@@ -32,15 +32,19 @@ public class Panel extends JPanel implements ActionListener {
     public void paint(Graphics g){
         super.paint(g);
         add(hexButton);
-        hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50, 50);
+        int x=10*getWidth()/1600;
+        int y=10*getHeight()/900;
+        int w = 50*getWidth()/1600;
+        int h = 58*getHeight()/900;
+        hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50*getWidth()/1600, 50*getHeight()/900);
         hexButton.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform oldTransform = g2.getTransform();
         AffineTransform t = new AffineTransform();
-        t.rotate(Math.toRadians(angle), 25,25);
+        t.rotate(Math.toRadians(angle), x+w/2,y+h/2);
         g2.setTransform(t);
-        g2.drawImage(img, 0, 0,50, 50, null);
+        g2.drawImage(img, x, y,w,h , null);
         g2.dispose();
         g2.setTransform(oldTransform);
 
