@@ -32,8 +32,8 @@ public class HexButton extends JButton {
 
     public HexButton(String label, int x, int y, int width, int height){
         super(label);
-        int[] xPoints = new int[6];
-        int[] yPoints = new int[6];
+        xPoints = new int[6];
+        yPoints = new int[6];
         for(int i = 0; i < 6; i++) {
             double v = i*Math.PI/3;
             xPoints[i] = x +width/2+ (int)Math.round(-width/2*Math.cos(v + Math.PI/2));
@@ -45,62 +45,53 @@ public class HexButton extends JButton {
         hexagon = new Polygon(xPoints, yPoints, 6);
     }
 
-
-    @Override
-    public void setBounds(int xx, int yy, int w, int h){
-        x=xx;
-        y=yy;
-        width=w;
-        height = h;
-        //width/=2;
-        //height/=2;
-        for(int i = 0; i < 6; i++) {
+    protected void paintBorder(Graphics g) {
+        g.setColor(Color.BLACK);
+        int x0 = getSize().width/2;
+        int y0 = getSize().height/2;
+        for(int i=0; i<6; i++) {
             double v = i*Math.PI/3;
-            //use this for ^
-            xPoints[i] = x +width/2+ (int)Math.round(-width/2*Math.cos(v + Math.PI/2));
-            yPoints[i] = y +height/2+ (int)Math.round(-height/2*Math.sin(v + Math.PI/2));
-            //use this for ------
-            //xPoints[i] = x + (int)Math.round(-width*Math.sin(v + Math.PI/2));
-            //yPoints[i] = y + (int)Math.round(-height*Math.cos(v + Math.PI/2));
+            xPoints[i] = x0 + (int)Math.round((getWidth()/2)*Math.sin(v));
+            yPoints[i] = y0 + (int)Math.round((getHeight()/2)*Math.cos(v));
         }
-        hexagon = new Polygon(xPoints, yPoints, 6);
-        //Graphics g = getGraphics();
-        //System.out.println(g);
-        //g.fillPolygon(hexagon);
-        //width*=2;
-        //height*=2;
-        System.out.println(Arrays.toString(xPoints));
-        System.out.println(Arrays.toString(yPoints));
+        g.drawPolygon(xPoints, yPoints,6);
     }
-
 
     protected void paintComponent(Graphics g) {
-        // Let the standard button painting occur
+        if (getModel().isArmed()) {
+            g.setColor(Color.lightGray);
+        } else {
+            g.setColor(getBackground());
+        }
+        int x0 = getSize().width/2;
+        int y0 = getSize().height/2;
+        for(int i=0; i<6; i++) {
+            double v = i*Math.PI/3;
+            xPoints[i] = x0 + (int)Math.round((getWidth()/2)*Math.sin(v));
+            yPoints[i] = y0 + (int)Math.round((getHeight()/2)*Math.cos(v));
+        }
+        //hexagon=new Polygon();
+        System.out.println(Arrays.toString(xPoints));
+        System.out.println(Arrays.toString(yPoints));
+        g.fillPolygon(xPoints, yPoints, 6);
+        //g.drawImage(img, x0,y0,this.getWidth(), this.getHeight(),null);
         super.paintComponent(g);
-
-        // Set the color of the hexagon
-        //g.setColor(Color.BLACK);
-
-        // Draw the hexagon
-        g.fillPolygon(hexagon);
-        System.out.println(x+", "+y);
-        //g.drawImage(img, x, y, width, width/100*116, null);
     }
+
+
 
     @Override
     public boolean contains(int x1, int y1) {
-        if (hexagon==null){
-            int[] xlst = new int[6];
-            int[] ylst = new int[6];
-
-            int x = getSize().width/2;
-            int y = getSize().height/2;
-            for (int i=0;i<6;i++){
-                double v = Math.PI/3;
-                xlst[i] = x + (int)Math.round((getWidth()/2)*Math.cos(v));
-                ylst[i] = y + (int)Math.round((getHeight()/2)*Math.sin(v));
+        if (hexagon == null ||
+                !hexagon.getBounds().equals(getBounds())) {
+            int x0 = getSize().width/2;
+            int y0 = getSize().height/2;
+            for(int i=0; i<6; i++) {
+                double v = i*Math.PI/3;
+                xPoints[i] = x0 + (int)Math.round((getWidth()/2)*Math.cos(v));
+                yPoints[i] = y0 + (int)Math.round((getHeight()/2)*Math.sin(v));
             }
-            hexagon=new Polygon(xlst, ylst, 6);
+            hexagon = new Polygon(xPoints,yPoints,6);
         }
         return hexagon.contains(x1, y1);
     }

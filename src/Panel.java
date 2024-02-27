@@ -21,9 +21,10 @@ public class Panel extends JPanel implements ActionListener {
         catch (Exception e){
             System.out.println(1231);
         }
-        angle=0;
-        hexButton=new HexButton("button");
+        angle=60;
+        hexButton=new HexButton("");
         hexButton.addActionListener(this);
+        add(hexButton);
         //hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50, 50);
         //hexButton.setVisible(true);
     }
@@ -31,23 +32,20 @@ public class Panel extends JPanel implements ActionListener {
 
     public void paint(Graphics g){
         super.paint(g);
-        add(hexButton);
-        int x=10*getWidth()/1600;
-        int y=10*getHeight()/900;
-        int w = 50*getWidth()/1600;
-        int h = 58*getHeight()/900;
-        hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50*getWidth()/1600, 50*getHeight()/900);
+        hexButton.setBounds(100, 10, 58, 58);
         hexButton.paintComponent(g);
+        int x = 10;
+        int y = 10;
+        int w = 50;
+        int h = 58 * getHeight() / 900;
+        h = w * 58 / 50;
 
-        Graphics2D g2 = (Graphics2D) g;
-        AffineTransform oldTransform = g2.getTransform();
-        AffineTransform t = new AffineTransform();
-        t.rotate(Math.toRadians(angle), x+w/2,y+h/2);
-        g2.setTransform(t);
-        g2.drawImage(img, x, y,w,h , null);
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.rotate(Math.toRadians(angle), x + w / 2, y + h / 2);
+        g2.drawImage(img, x, y, w, h, null);
+
+        // Dispose the Graphics2D object to release resources
         g2.dispose();
-        g2.setTransform(oldTransform);
-
     }
 
     @Override
