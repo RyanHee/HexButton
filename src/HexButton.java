@@ -70,11 +70,9 @@ public class HexButton extends JButton {
             xPoints[i] = x0 + (int)Math.round((getWidth()/2)*Math.sin(v));
             yPoints[i] = y0 + (int)Math.round((getHeight()/2)*Math.cos(v));
         }
-        //hexagon=new Polygon();
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
         g.fillPolygon(xPoints, yPoints, 6);
-        //g.drawImage(img, x0,y0,this.getWidth(), this.getHeight(),null);
         super.paintComponent(g);
     }
 
