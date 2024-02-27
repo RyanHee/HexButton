@@ -1,5 +1,3 @@
-
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 public class HexButton extends JButton {
-
     private Polygon hexagon;
     private int x, y, width, height;
     private int[]xPoints, yPoints;
@@ -41,7 +38,6 @@ public class HexButton extends JButton {
         }
         System.out.println(Arrays.toString(xPoints));
         System.out.println(Arrays.toString(yPoints));
-
         hexagon = new Polygon(xPoints, yPoints, 6);
     }
 

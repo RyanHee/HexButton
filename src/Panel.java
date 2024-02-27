@@ -25,8 +25,6 @@ public class Panel extends JPanel implements ActionListener {
         hexButton=new HexButton("");
         hexButton.addActionListener(this);
         add(hexButton);
-        //hexButton.setBounds(200*getWidth()/1600, 100*getHeight()/900, 50, 50);
-        //hexButton.setVisible(true);
     }
 
 
@@ -37,14 +35,12 @@ public class Panel extends JPanel implements ActionListener {
         int x = 10;
         int y = 10;
         int w = 50;
-        int h = 58 * getHeight() / 900;
-        h = w * 58 / 50;
+        int h = w * 58 / 50;
+
 
         Graphics2D g2 = (Graphics2D) g.create();
         g2.rotate(Math.toRadians(angle), x + w / 2, y + h / 2);
         g2.drawImage(img, x, y, w, h, null);
-
-        // Dispose the Graphics2D object to release resources
         g2.dispose();
     }
 

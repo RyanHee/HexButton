@@ -1,5 +1,5 @@
 public class Constants {
 
-    public static int W;
-    public static int H;
+    public static int WIDTH=1600;
+    public static int HEIGHT=900;
 }
